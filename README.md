@@ -1,1 +1,1 @@
-# Mindtree_Trainig
+# Mindtree_Training
