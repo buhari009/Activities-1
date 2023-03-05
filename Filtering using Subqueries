@@ -1,0 +1,159 @@
+// Special Thanks to Rohan Rathore who contributed in these codes
+
+Github id :- Rohan-Rathore
+
+1
+
+SELECT * FROM building WHERE building_type_id in 
+(SELECT id FROM building_type WHERE name = 'Library') 
+ORDER BY owner_name ASC
+
+2
+
+Select contact_number from building
+where building_type_id in(Select id from building_type where name ='Police Station')
+order by contact_number;
+
+3
+
+select name from building_type 
+where id = (select building_type_id from building 
+where id = (select building_id from meter 
+where meter_number='SG824012'));
+
+4
+Select meter_number from meter
+where building_id in 
+(Select id from building where building_type_id in
+ (Select id from building_type where name="College"))
+ order by meter_number;
+
+5
+
+Select payment_date from bill
+where meter_id in
+(Select id from meter where meter_number ="SG288942");
+
+6.
+
+select count(id) as building_count from building
+where id in 
+(select building_id from meter where id in 
+(select meter_id from bill where fine_amount>0));
+
+ 7.
+ 
+ select avg(payable_amount) as payable_amount from bill
+where meter_id in(select id from meter where building_id in
+(select id from building where building_type_id in
+(select id from building_type where connection_type_id in
+(select id from electricity_connection_type where id in
+(select connection_type_id from slab where rate<24)))));
+
+8.
+
+Select payment_date from bill
+where meter_id in
+(Select id from meter where meter_number ="SG288942");
+   
+9
+
+Select meter_number from meter
+where id in (select meter_id from electricity_reading 
+where day='2018/05/07') order by meter_number;
+
+10.
+
+select owner_name from building 
+where id in (select building_id from meter 
+where id in (select meter_id from bill 
+where total_units=(select max(total_units) from bill)))
+order by owner_name;
+
+11.
+
+select meter_number from meter where 
+id in (select meter_id from bill
+where total_units in (select min(total_units ) from bill ))
+order by meter_number;
+
+12.
+
+select meter_number from meter 
+where id in (select meter_id from electricity_reading 
+where h20 in (select max(h20) from electricity_reading));
+
+13.
+
+select meter_number from meter 
+where id in (select meter_id from electricity_reading
+where h21 in
+(select min(h21) from electricity_reading)) 
+order by meter_number ASC;
+
+14.
+
+select meter_number from meter where 
+id in (select meter_id from bill 
+where fine_amount in (select max(fine_amount) from bill));
+
+15.
+
+select owner_name, contact_number from building
+where id in 
+(select building_id from meter 
+ where id in 
+(select meter_id from bill where month = 10) )
+order by owner_name;
+
+
+16.
+
+Select count(is_payed) as payment_count from bill
+where  meter_id  in
+(Select id from meter
+ where building_id in
+ (Select id from building 
+  where building_type_id in
+  (Select id from building_type
+   where connection_type_id in
+   (select id from electricity_connection_type
+    where connection_name="Commercial"))))
+    and is_payed=1
+   ;
+   
+17.
+
+Select address from building
+where building_type_id in
+(Select id from building_type
+ where connection_type_id in
+ (Select id from electricity_connection_type
+  where connection_name="Home"))
+  order by address;
+ 
+
+
+18.
+
+select owner_name from building where id in 
+(select building_id from meter where id in 
+(select meter_id from electricity_reading where total_units in 
+(select min(total_units) from electricity_reading)));
+
+19.
+
+select sum(h20) as total_amount, avg(h20) as average_amount from electricity_reading where meter_id in
+(select id from meter where building_id in
+(select id from building where building_type_id in 
+(select id from building_type where connection_type_id in 
+(select id from electricity_connection_type where connection_name='Commercial'))));
+
+20.
+
+select rate from slab  where connection_type_id in
+(select id from electricity_connection_type where id in
+(select building_type_id from building where id in
+(select building_id from meter where meter_number='SG567423')));
+  
+  
