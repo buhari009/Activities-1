@@ -1,7 +1,7 @@
 Que 1:  Write a query to display the name of the company and the number of alumni who are currently working in each company. Give an alias to the number of alumni as alumni_count.
-Select company_name,count(company_name) as alumini_count from experience 
-where current=1
-group by company_name;
+SELECT company_name, COUNT(*) as alumni_count FROM experience
+where end is null
+GROUP BY company_name;
 
 Que 2:  Write a query to display the year and the number of events scheduled in each year, sorted by year. Give an alias as number_of_events.
 select year(date),count(*) as number_of_events from event
