@@ -41,8 +41,8 @@ Select count(*) as number_of_posts from post
 where date<'2013-12-01';
 
 Que 12:  Write a query to display the number of posts posted after 1st December, 2013. Give an alias as number_of_posts.
-select count(*) as number_of_posts from query
-where date(date)>'2013-12-01';
+Select count(*) as number_of_posts from post
+where date>'2013-12-01';
 
 Que 13:  Write a query to display the number of buildings having an email_address.Give an alias name as 'count_of_buildings_with_email'.
 select count(*) as count_of_buildings_with_email from building
