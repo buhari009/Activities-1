@@ -91,6 +91,19 @@ INNER JOIN travel_payment tp ON tc.id = tp.travel_card_id
 WHERE tp.exit_time like '2017-12-21%' AND tp.amount > 25
 ORDER BY tc.person_name ASC;
 
+10
+
+select mt.position, mt.updated_time, mt.forward, ts.scheduled_time, tat.actual_time
+from metro_train  mt
+inner join route r on mt.route_id=r.id
+inner join train_schedule ts on ts.metro_train_id=mt.id
+inner join train_arrival_time tat on tat.metro_train_id=mt.id
+where r.route_name = 'North South Line'
+or r.route_name = 'Circle Line'
+order by position;
+
+//If it is not submitting, submit again and again it'll eventually get submitted. I dont know exact reason why this is happening.
+
 11
 SELECT t.person_name, t.contact_number 
 FROM travel_payment tp 
@@ -102,6 +115,16 @@ WHERE r.route_name = 'North East line'
 AND tp.amount > 25 
 ORDER BY t.person_name ASC;
 
+12
+
+Select s.name, s.locality
+from station s
+inner join station_route sr on sr.station_id=s.id
+inner join route r on r.id=sr.route_id
+inner join train_schedule ts on ts.station_id=s.id
+where r.route_name='Circle Line'
+and date(ts.scheduled_time)='2017-12-21'
+order by s.name;
 
 13
 SELECT tc.person_name, tc.contact_number, tc.balance
@@ -132,6 +155,3 @@ JOIN travel_payment tp ON tc.id = tp.travel_card_id
 GROUP BY tc.person_name 
 HAVING COUNT(*) = (SELECT MAX(trip_count) FROM (SELECT COUNT(*) AS trip_count FROM travel_payment GROUP BY travel_card_id) AS counts) 
 ORDER BY tc.person_name DESC;
-
-
-//please post answers of 10 and 12 in the comments if you got it write
