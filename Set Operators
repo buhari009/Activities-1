@@ -10,11 +10,10 @@ where owner_name="Nicholas";
 
 Que 2:  Write a query to display the number of bills paid with respect to payment date in the month of october and number of bills with payment date in the month of december.Give an alias name to the number of bills as no_of_bills.Display the record in descending order based on no_of_bills .
 Note: Use union
+
 Select count(*) as no_of_bills from bill
-where  is_payed=1 and month=10
+where  is_payed=1 and month(payment_date)=10
 Union
 select count(*) as no_of_bills from bill
-where is_payed=1 and month=12
+where is_payed=1 and month(payment_date)=12
 order by no_of_bills desc;
-
-//incorrect from the server side
