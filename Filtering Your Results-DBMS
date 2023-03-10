@@ -68,9 +68,8 @@ order by total_units desc;
 
 QUE 15:  Write a query to display the due date and  payable amount  of all the payment dates that are all not fall in between '2017-09-10' to '2017-10-10'.
 Select due_date,payable_amount from bill
-where payment_date not between '2017-09-10' and 2017-10-10;
-//it is logically correct but it shows incorrect in the system
-//if someone finds the correct answer please post it.
+where payment_date not between '2017-09-10' and '2017-10-10';
+
 
 QUE 16:  Write a query to display the due_date ,payment_date,difference betweeen the due date and the payment date of the bill in days and amount paid, whose payment  date is not exceeding the  due date.Give an alias name for difference betweeen the due date and the payment date as 'date_difference'.
 SELECT due_date, payment_date, DATEDIFF(due_date,payment_date) AS date_difference,payable_amount
