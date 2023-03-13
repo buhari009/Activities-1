@@ -1,0 +1,111 @@
+1.
+
+db.books.insertMany([
+  {
+    title: "To Kill a Mockingbird",
+    author_id: [2],
+    published_date: new Date("1960-07-11"),
+    pages: 281,
+    language: ["English"],
+    publisher_id: 2,
+    price: 10.99
+  },
+  {
+    title: "The Catcher in the Rye",
+    author_id: [3],
+    published_date: new Date("1951-07-16"),
+    pages: 277,
+    language: ["English"],
+    publisher_id: 3,
+    price: 9.99
+  }
+])
+
+
+
+2.
+
+
+db.publisher.insertMany([
+  {
+    pub_name: "HarperCollins",
+    country: "USA"
+  },
+  {
+    pub_name: "Penguin Books",
+    country: "UK"
+  }
+])
+
+
+3.
+
+db.author.insertMany([
+  {
+    author_name: { firstname: "Jane", middlename: "Austen", lastname: "Smith" },
+    age: 41,
+    gender: "female",
+    email_id: "jane.austen@example.com",
+    phoneno: "+1 123-456-7890",
+    Address: [
+      { street: "123 Main St", city: "London", state: "NA", country: "UK" }
+    ]
+  },
+  {
+    author_name: { firstname: "Ernest", middlename: "Miller", lastname: "Hemingway" },
+    age: 61,
+    gender: "male",
+    email_id: "ernest.hemingway@example.com",
+    phoneno: "+1 987-654-3210",
+    Address: [
+      { street: "456 Second Ave", city: "Chicago", state: "IL", country: "USA" }
+    ]
+  }
+])
+
+
+4.
+
+db.books.updateOne(
+  { _id: 77 },
+  { $set: { language: ["Sanskrit"] } }
+)
+
+
+
+5.
+
+db.books.updateMany(
+  { publisher_id: 201 },
+  { $set: { published_date: new Date("2010-10-24") } }
+)
+
+
+6.
+
+db.author.deleteOne({ _id: 201 })
+
+7.
+
+db.publisher.deleteMany({})
+
+
+8.
+
+db.books.deleteMany({ publisher_id: 201 })
+
+9.
+
+db.author.updateOne(
+  { _id: 41 },
+  { $rename: { email_id: "mail", phoneno: "mobile" } }
+)
+
+
+10.
+
+db.publisher.updateOne(
+  { _id: 203 },
+  { $set: { pub_name: "UniversityPress", country: "US" } },
+  { upsert: true }
+)
