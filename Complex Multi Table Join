@@ -10,14 +10,12 @@ order by b.owner_name,m.meter_number;
 
 2
 
-SELECT building.owner_name, building.address, COUNT(*) AS connection_count
-FROM building
-INNER JOIN building_type ON building.building_type_id = building_type.id
-INNER JOIN electricity_connection_type c ON c.id=building_type.connection_type_id
-GROUP BY building.id
-ORDER BY building.owner_name ASC;
-
-//it shows no error when validating but not submitting properly
+Select building.owner_name,building.address,count(*) as connection_count from building
+INNER JOIN building_type on building.building_type_id=building_type.id
+INNER JOIN electricity_connection_type c on c.id=building_type.connection_type_id
+INNER JOIN meter on meter.building_id=building.id
+Group by building.id
+Order  by building.owner_name ASC;
 
 3
 
@@ -101,20 +99,14 @@ LIMIT 1 OFFSET 1;
 
 10
 
-SELECT
-    meter.meter_number,
-    SUM(h1+h2+h3+h4+h5+h6) + SUM(h7+h8+h9+h10+h11) + SUM(h12+h13+h14+h15) + SUM(h16+h17+h18+h19) + SUM(h20+h21+h22+h23+h24) AS month_total_unit,
-    bill.payable_amount,
-    SUM(h6+h7+h8+h9+h10+h11) AS morning,
-    SUM(h12+h13+h14+h15) AS afternoon,
-    SUM(h16+h17+h18+h19) As evening,
-    SUM(h1+h2+h3+h4+h5+h20+h21+h22+h23+h24) as night
-FROM electricity_reading
-INNER JOIN meter ON electricity_reading.meter_id = meter.id
-INNER JOIN bill ON meter.id=bill.meter_id
-WHERE bill.month = 12 AND bill.year = 2017
-GROUP BY meter.meter_number, bill.payable_amount
-ORDER BY month_total_unit DESC;
-
-
-//it shows no error when validating but not submitting properly
+select m.meter_number , sum(er.total_units) as month_total_unit , b.payable_amount , 
+sum(er.h6+er.h7+er.h8+er.h9+er.h10+er.h11) as morning , 
+sum(er.h12+er.h13+er.h14+er.h15) as afternoon,
+sum(er.h16+er.h17+er.h18+er.h19) as evening,
+sum(er.h20+er.h21+er.h22+er.h23+er.h24+er.h1+er.h2+er.h3+er.h4+er.h5) as night
+from electricity_reading er 
+join meter m on m.id= er.meter_id
+join bill b on b.meter_id=m.id
+where b.month = 12 and b.year=2017 
+group by m.meter_number
+order by month_total_unit desc;
