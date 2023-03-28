@@ -1,21 +1,30 @@
 using System;
- class StageEvent : Event
-    {
-        private static int _gst = 15;
-        private int _noOfSeats;
 
-        public StageEvent(string name, string type, double costPerDay, int noOfDays, int noOfSeats) : base(name, type, costPerDay, noOfDays)
+    class Event
+    {
+        protected string _name;
+        protected string _type;
+        protected double _costPerDay;
+        protected int _noOfDays;
+
+        public Event()
         {
-            _noOfSeats = noOfSeats;
+            _name = "";
+            _type = "";
+            _costPerDay = 0;
+            _noOfDays = 0;
         }
 
-        public double totalCost()
+        public Event(string name, string type, double costPerDay, int noOfDays)
         {
-            return (_costPerDay * _noOfDays) * (1 + (_gst / 100.0));
+            _name = name;
+            _type = type;
+            _costPerDay = costPerDay;
+            _noOfDays = noOfDays;
         }
 
         public override string ToString()
         {
-            return base.ToString() + "\nNumber of seats:" + _noOfSeats + "\nTotal amount:" + totalCost().ToString("F2");
+            return "Name:" + _name + "\nType:" + _type;
         }
     }
