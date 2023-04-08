@@ -1,0 +1,154 @@
+// HallBo.cs // 
+using System;
+using System.Collections.Generic;
+
+class HallBO
+{
+    public HallBO() {}
+    public Hall CreateHall(string hallDetails)
+    {
+        Hall H = new Hall();
+        string [] hallDetailsarr = hallDetails.Split(",");
+        H.name = hallDetailsarr[0];
+        H.contactNumber = hallDetailsarr[1];
+        H.costPerDay = double.Parse(hallDetailsarr[2]);
+        H.ownerName = hallDetailsarr[3];
+        return H;
+    }
+    public bool RemoveHallFromList(List<Hall> hallList, int index)
+    {
+        hallList.RemoveAt((index-1));
+        return true;
+    }
+    public void DisplayHalls(List<Hall> hallList)
+    {
+        Console.WriteLine("{0}{1,15}{2,15}{3,15}", "Name", "Contact Number", "Cost per day", "Owner Name");
+        foreach(Hall h in hallList){
+            Console.WriteLine(h.name + "     " + h.contactNumber + "             " + h.costPerDay + "           " + h.ownerName);
+        }
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+// Program.cs //
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        HallBO hallBO = new HallBO();
+        List<Hall> hallList = new List<Hall>();
+        int flag = 0;
+        HallBO hb = new HallBO();
+        while (flag == 0)
+        {
+            Console.WriteLine("1.Add Hall\n2.Remove Hall\n3.Exit\nEnter the choice:");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("Enter hall detail:");
+                    string hallDetail = Console.ReadLine();
+                    hallList.Add(hb.CreateHall(hallDetail));
+                    Console.WriteLine("Hall Created Successfully");
+                    break;
+                case 2:
+                   
+                    if(hallList.Count == 0){
+                        Console.WriteLine("List is empty");
+                        flag = 1;}
+                        
+                    else{
+                        Console.WriteLine("Total " + hallList.Count + " Halls \nEnter the index: ");
+                        int pos = int.Parse(Console.ReadLine());
+                        hb.RemoveHallFromList(hallList,pos);
+                        if(hallList.Count != 0){
+                            hb.DisplayHalls(hallList);}
+                    
+                        else{
+                            Console.WriteLine("Hall list empty");
+                    }}
+                    break;
+                case 3:
+                    flag = 1;
+                    break;
+            }
+          
+        
+    }
+}}
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+// Hall.cs //
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+class Hall
+{
+    string _name;
+    string _contactNumber;
+    double _costPerDay;
+    string _ownerName;
+
+    public string name
+    {
+        get
+        {
+            return this._name;
+        }
+        set
+        {
+            this._name = value;
+        }
+    }
+
+    public string contactNumber
+    {
+        get
+        {
+            return this._contactNumber;
+        }
+        set
+        {
+            this._contactNumber = value;
+        }
+    }
+    public double costPerDay
+    {
+        get
+        {
+            return this._costPerDay;
+        }
+        set
+        {
+            this._costPerDay = value;
+        }
+    }
+    public string ownerName
+    {
+        get
+        {
+            return this._ownerName;
+        }
+        set
+        {
+            this._ownerName = value;
+        }
+    }
+
+    public Hall(){}
+
+    public Hall(string _name, string _contactNumber, double _costPerDay, string _ownerName)
+    {
+        name = _name;
+        contactNumber = _contactNumber;
+        costPerDay = _costPerDay;
+        ownerName = _ownerName;
+    }
+}
